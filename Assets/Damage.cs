@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Damage : MonoBehaviour
 {
-    public float speed = 10.0f;
+    public float damage = 1.0f;
 
     // Start is called before the first frame update
-    void OnEnable()
+    void Start()
     {
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        Health othersHealth = other.GetComponent<Health>();
+
+        if (othersHealth != null)
+        {
+            othersHealth.ApplyDamage(damage);
+        }
     }
 
     // Update is called once per frame
