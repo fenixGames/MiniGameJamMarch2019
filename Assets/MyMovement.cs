@@ -17,8 +17,8 @@ public class MyMovement : MonoBehaviour
     Vector3 Mobius(float u, float v)
     {
         return new Vector3(
-            (1 + v / 2 * Mathf.Cos(u / 2)) * Mathf.Cos(u),
-            (1 + v / 2 * Mathf.Cos(u / 2)) * Mathf.Sin(u),
+            (1 + v / 2 * Mathf.Cos(u / 2 + rotationOffset)) * Mathf.Cos(u),
+            (1 + v / 2 * Mathf.Cos(u / 2 + rotationOffset)) * Mathf.Sin(u),
             v / 2 * Mathf.Sin(u / 2)
         );
     }
@@ -58,13 +58,13 @@ public class MyMovement : MonoBehaviour
     {
         theta += 0.01f;
 
-        Vector3 newPos = center + Mobius(theta + rotationOffset, phi);
+        Vector3 newPos = center + Mobius(theta, phi);
 
-        Vector3 normalMobius = Mobius(theta + rotationOffset, 1) - Mobius(theta + rotationOffset, 0);
+        Vector3 normalMobius = Mobius(theta, 1) - Mobius(theta, 0);
 
-        Vector3 centerMob = Mobius(theta + rotationOffset, 0);
+        Vector3 centerMob = Mobius(theta, 0);
         
-        transform.rotation = Quaternion.LookRotation(normalMobius, new Vector3(-Mathf.Sin(theta + rotationOffset), Mathf.Cos(theta + rotationOffset), 0));
+        transform.rotation = Quaternion.LookRotation(normalMobius, new Vector3(-Mathf.Sin(theta), Mathf.Cos(theta), 0));
         transform.position = newPos * radius;
 
     }
@@ -72,15 +72,15 @@ public class MyMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(Mobius(theta + rotationOffset, 1) * radius, Mobius(theta + rotationOffset, 0) * radius);
-        Vector3 centerMob = Mobius(theta + rotationOffset, 0) * radius;
+        Gizmos.DrawLine(Mobius(theta, 1) * radius, Mobius(theta, 0) * radius);
+        Vector3 centerMob = Mobius(theta, 0) * radius;
         Vector3 normal = new Vector3(-Mathf.Sin(theta), Mathf.Cos(theta), 0);
         Gizmos.DrawLine(centerMob, centerMob + normal);
 
         Gizmos.color = Color.white;
         for (int i = 0; i < 40; i++)
         {
-            float angle = i / 20.0f * Mathf.PI + rotationOffset;
+            float angle = i / 20.0f * Mathf.PI;
 
             Gizmos.DrawLine(Mobius(angle, -1) * radius, Mobius(angle, 1) * radius);
         }
