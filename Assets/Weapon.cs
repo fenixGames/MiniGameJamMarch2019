@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public Transform firingStartPoint;
     public float cooldown = 0.5f;
     private float _timer;
+    private bool isFiring;
 
     public void Attack()
     {
@@ -18,10 +19,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void StartFiring()
+    {
+        isFiring = true;
+    }
+
+    public void StopFiring()
+    {
+        isFiring = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _timer = 0.0f;
+        isFiring = false;
     }
 
     // Update is called once per frame
@@ -30,5 +42,8 @@ public class Weapon : MonoBehaviour
         _timer -= Time.deltaTime;
         if (_timer < 0.0f)
             _timer = 0.0f;
+
+        if (isFiring)
+            Attack();
     }
 }

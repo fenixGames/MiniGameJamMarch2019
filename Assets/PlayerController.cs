@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float mouseSensibility = 1.0f;
+    public GameObject weaponObject;
 
 
     // Start is called before the first frame update
@@ -16,11 +17,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Weapon weapon = weaponObject.GetComponent<Weapon>();
+
         if (Input.GetMouseButtonDown(0))
-        {
-            Weapon weapon = GetComponent<Weapon>();
-            weapon.Attack();
-        }
+            weapon.StartFiring();
+        else if (Input.GetMouseButtonUp(0))
+            weapon.StopFiring();
 
         Camera camera = GetComponent<Camera>();
 
