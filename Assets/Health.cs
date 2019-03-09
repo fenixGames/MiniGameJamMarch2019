@@ -5,10 +5,12 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float hitPoints;
+    public float armorValue = 0.0f;
 
     public void ApplyDamage(float damage)
     {
-        hitPoints -= damage;
+        if (damage > armorValue)
+            hitPoints -= (damage - armorValue);
 
         DeathEffect deathEffect = GetComponent<DeathEffect>();
 
