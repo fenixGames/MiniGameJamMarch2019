@@ -12,6 +12,11 @@ public class Bullet : MonoBehaviour
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
