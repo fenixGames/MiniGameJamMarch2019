@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.minigamejammarc2019.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Projects\\OwnProjects\\MiniGameJamMarch2019\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "MiniGameJamMarc2019 [Testing]"
+        }
+      }
+    }
+  ]
+}
